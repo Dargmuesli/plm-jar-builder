@@ -1,12 +1,14 @@
 version: '{build}'
 
+image: Visual Studio 2017
+
 init:
   - ps: |
       Write-Host "PowerShell Version: $(${PSVersionTable}.PSVersion)"
 
 install:
   - ps: |
-      Install-Module -Name "Pester"
+      Install-Module -Name "Pester" -SkipPublisherCheck -Force
 
 build_script:
   - ps: |

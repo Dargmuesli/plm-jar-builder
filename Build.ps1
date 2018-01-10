@@ -27,7 +27,7 @@ Function Install-Dependencies {
 
     If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
         # Required version needed until https://github.com/appveyor/ci/issues/2013 gets solved
-        Install-Module -Name "PSDepend" -RequiredVersion "0.1.56" -Scope "CurrentUser" -Force
+        Install-Module -Name "PSDepend" -Scope "CurrentUser" -Force
     }
 
     Invoke-PSDepend -Path $RequirementsPath -Force

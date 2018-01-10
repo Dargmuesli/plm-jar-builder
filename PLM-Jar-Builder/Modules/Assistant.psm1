@@ -71,9 +71,9 @@ Function Invoke-PlmJarBuilder {
                 If (Read-PromptYesNo -Caption "v$LatestRelease" -Message "Eine neue Version vom $ModuleName wurde gefunden. Aktuell installiert ist v$ExistingVersion. Soll jetzt automatisch zur neuesten Version geupdatet werden?" -DefaultChoice 0) {
                     Invoke-PSDepend -InputObject @{"$ModuleAuthorUsername/$ModuleName" = "master"} -Install -Force
                     Remove-Module $ModuleName
-
-                    # Module installed. Please enter `"Import-Module $ModuleName`" and run `"Invoke-PlmJarBuilder`" again.
-                    Write-MultiColor -Text @("Modul installiert. Bitte `"", "Import-Module $ModuleName", "`" eingeben und `"", "Invoke-PlmJarBuilder", "`" neu ausführen.") -Color White, Cyan, White, Cyan, White
+                    Import-Module $ModuleName
+                    Invoke-PlmJarBuilder @PSBoundParameters
+                    
                     Break
                 }
             }

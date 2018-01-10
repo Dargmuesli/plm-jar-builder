@@ -27,6 +27,8 @@ Function Invoke-PlmJarBuilder {
         [Switch] $Offline
     )
 
+    Write-Host "$($MyInvocation.MyCommand.Module.Name) $($MyInvocation.MyCommand.Version)"
+
     # Check online status and install dependencies if connected to the internet
     If (-Not (Test-Connection -ComputerName "google.com" -Count 1 -Quiet)) {
         $Offline = $True

@@ -51,7 +51,7 @@ Function Invoke-PlmJarBuilder {
         }
 
         If (-Not $SkipUpdateCheck) {
-            #Checking for updates
+            # Check for updates
             Write-Host "Suche nach Updates..." -ForegroundColor "Cyan"
 
             $ModuleAuthorUsername = Get-PlmJarBuilderVariable -Name "ModuleAuthorUsername"
@@ -73,7 +73,7 @@ Function Invoke-PlmJarBuilder {
                     Remove-Module $ModuleName
                     Import-Module $ModuleName
                     Invoke-PlmJarBuilder @PSBoundParameters
-                    
+
                     Break
                 }
             }
@@ -352,7 +352,7 @@ Wahl
                 Write-Host @"
 Welche .jar-Datei möchtest du hochladen?"
 "@ -ForegroundColor "Yellow"
-                
+
                 # 1) The newest
                 # 2) Individual .jar file
 
@@ -368,11 +368,11 @@ Wahl
 "@ `
                     -ValidityCheck {@(1, 2) -Contains $args[0]} `
                     -ErrorMessage "Ungültige Wahl!"
-                
+
                 Switch ($Answer) {
                     1 {
                         If (($ExerciseRootPath -Eq $Null) -Or (-Not (Test-Path $ExerciseRootPath)) -Or (-Not (Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath))) {
-                        
+
                             # The path in which the exercise folders are placed
                             # ---
                             # Invalid path!
@@ -388,7 +388,7 @@ Wahl
                                 "Der angegebene Ordner enthält keine Aufgaben-Order!"
                             )
                         }
-        
+
                         Publish-PlmJar -Session $Session -Path $ExerciseRootPath -ErrorVariable "ErrorVariable"
 
                         Break
@@ -406,7 +406,7 @@ Wahl
                                 "Nicht eine .jar-Datei!"
                             )
                         ).Replace("`"", "")
-        
+
                         Publish-PlmJar -Session $Session -Path $Path -ErrorVariable "ErrorVariable"
 
                         Break
@@ -548,7 +548,7 @@ Wahl
                 }
 
                 If ($?) {
-                    
+
                     # Download successful.
                     Write-Host "Download erfolgreich." -ForegroundColor "Green"
                 } Else {

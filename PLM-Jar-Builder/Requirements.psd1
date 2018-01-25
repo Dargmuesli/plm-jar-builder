@@ -1,12 +1,12 @@
 @{
-    'dargmuesli/powershell-lib' = @{
+    "dargmuesli/powershell-lib" = @{
         "Version" = "latest"
     }
-    'Pester'                    = @{
+    "Pester"                    = @{
         "Version" = "latest"
         "Target"  = "CurrentUser"
     }
-    'platyPS'                   = @{
+    "platyPS"                   = @{
         "Version" = "latest"
         "Target"  = "CurrentUser"
     }

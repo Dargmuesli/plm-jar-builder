@@ -56,7 +56,7 @@ Function Invoke-PlmJarBuilder {
 
             $ModuleAuthorUsername = Get-PlmJarBuilderVariable -Name "ModuleAuthorUsername"
             $ModuleName = Get-PlmJarBuilderVariable -Name "ModuleName"
-            $ExistingVersion = (Get-Module -Name $ModuleName).Version
+            $ExistingVersion = (Get-Module -Name $ModuleName)[0].Version
             $LatestRelease = $Null
 
             Try {

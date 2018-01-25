@@ -320,7 +320,7 @@ Function Publish-PlmJar {
         }
 
         If ($JarFile.Count -Ne 1) {
-            
+
             # More than one newest .jar file found!
             Throw "Mehr als eine neueste .jar-Datei gefunden!"
         } Else {
@@ -390,6 +390,17 @@ on
                 )
             )
         }
+    } Else {
+        Write-ErrorRecord `
+            -Exception "InvalidOperationException" `
+            -ErrorId "UploadAvailableError" `
+            -ErrorCategory "InvalidOperation" `
+            -TargetObject $Request `
+            -Message (
+            -join (
+                "Es steht keine Abgabe von Lösungen an."
+            )
+        )
     }
 }
 

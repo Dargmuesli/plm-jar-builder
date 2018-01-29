@@ -32,7 +32,7 @@ Zu Installation müssen in einem PowerShell-Fenster die zwei folgenden Befehle a
 
 ```PowerShell
 Install-Module "PSDepend" -Scope "CurrentUser" -Force
-Invoke-PSDepend -InputObject @{"dargmuesli/plm-jar-builder" = "master"} -Install -Force
+Invoke-PSDepend -InputObject @{"dargmuesli/plm-jar-builder" = "latest"} -Install -Force
 ```
 
 <a name="Usage"></a>
@@ -89,61 +89,61 @@ Folgende Einstellungsmöglichkeiten gibt es:
 ### Custom
 Einstellungen, die dem Benutzer die Eingabe von Funktionsparametern ersparen, aber die Programmfunktion nicht grundlegend ändern.
 
-- **ExerciseRootPath**  
-Der Pfad zum Ordner, in dem sich die Aufgabenordner (`Aufgabenblatt 1`, ...) befinden.  
+- **ExerciseRootPath**
+Der Pfad zum Ordner, in dem sich die Aufgabenordner (`Aufgabenblatt 1`, ...) befinden.
 Standardwert: `%MyDocuments%\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen`
 
-- **DownloadPath**  
-Der Pfad zum Ordner, in den .jar-Dateien heruntergeladen werden.  
+- **DownloadPath**
+Der Pfad zum Ordner, in den .jar-Dateien heruntergeladen werden.
 Standardwert: `%Downloads%` (Registry-Schlüssel)
 
-- **Exclude**  
-Dateiendungen als Regex, die nicht in die .jar-Datei gepackt werden sollen.  
+- **Exclude**
+Dateiendungen als Regex, die nicht in die .jar-Datei gepackt werden sollen.
 Standardwert: `".*\.class", ".*\.eml", ".*\.iml", ".*\.jar", ".*\.odt", ".*\.odg", ".*\.old", "[^\\]+\\\.idea\\.*", ".*\\In\.java", "[^\\]+\\out\\.*", ".*\\Out\.java"`
 
-- **NoNote**  
-Festlegen, ob eine Markdown-Notiz bezüglich dieses Moduls mit in die .jar-Datei gepackt werden soll.  
+- **NoNote**
+Festlegen, ob eine Markdown-Notiz bezüglich dieses Moduls mit in die .jar-Datei gepackt werden soll.
 Standardwert: `false`
 
 
 #### PLM
 Daten, die im Browser-Authentifizierungsfenster angegeben werden müssen, bevor man die PLM-Seite überhaupt sieht.
 
-- **Username**  
-Der PLM-Benutzername.  
+- **Username**
+Der PLM-Benutzername.
 Standardwert: `""`
 
-- **EncryptedPassword**  
-Eine [verschlüsselte Version](#verschlüsselte-passwörter) des PLM-Passworts.  
+- **EncryptedPassword**
+Eine [verschlüsselte Version](#verschlüsselte-passwörter) des PLM-Passworts.
 Standardwert: `""`
 
 
 #### User
 Daten, die zur Anmeldung direkt auf der PLM-Seite genutzt werden.
 
-- **MatriculationNumber**  
-Die Matrikelnummer, die als Benutzername für die PLM-Seite im Dateinamen der .jar-Datei vorkommen soll.  
+- **MatriculationNumber**
+Die Matrikelnummer, die als Benutzername für die PLM-Seite im Dateinamen der .jar-Datei vorkommen soll.
 Standardwert: `""`
 
-- **EncryptedPassword**  
-Eine [verschlüsselte Version](#verschlüsselte-passwörter) des Benutzerpassworts.  
+- **EncryptedPassword**
+Eine [verschlüsselte Version](#verschlüsselte-passwörter) des Benutzerpassworts.
 Standardwert: `""`
 
 
 ### Default
 Einstellungen, die die Funktion des Moduls grundlegend ändern, weil sie Änderungen an der vorgegebenen Ordnerhierarchie darstellen.
 
-- **SolutionPath**  
+- **SolutionPath**
 Der Pfad zum Order innerhalb des Aufgabenordners, der die Lösung enthält.
-Darin sollten alle Dateien sein, die in die .jar-Datei gepackt werden sollen.  
+Darin sollten alle Dateien sein, die in die .jar-Datei gepackt werden sollen.
 Standardwert: `"Lösung"`
 
-- **ExerciseSheetRegex**  
-Der reguläre Ausdruck, nach dem Aufgabenordner und Übungsnummern gefunden werden.  
+- **ExerciseSheetRegex**
+Der reguläre Ausdruck, nach dem Aufgabenordner und Übungsnummern gefunden werden.
 Standardwert: `"^Aufgabenblatt (\\d{1,2})$"`
 
-- **JarFileRegex**  
-Der reguläre Ausdruck, nach dem .jar-Dateien, Matrikelnummern und Übungsnummern gefunden werden.  
+- **JarFileRegex**
+Der reguläre Ausdruck, nach dem .jar-Dateien, Matrikelnummern und Übungsnummern gefunden werden.
 Standardwert: `"^(\\d+|.*)_(\\d{2}).jar$"`
 
 <a name="Hints"></a>

@@ -46,7 +46,7 @@ Invoke-PlmJarBuilder
 ```
 
 ### Screenshot
-![Screenshot](Resources/screenshot.png "Screenshot")
+![Screenshot](Resources/Screenshot.png "Screenshot")
 
 Alternativ können auch [einzelne Module](#Module) direkt angesprochen werden.
 

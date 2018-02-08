@@ -59,23 +59,24 @@ Es wird eine Ordnerstruktur ähnlich zur folgenden vorausgesetzt:
 Übungen\
 ├── Aufgabenblatt 1\
 │   ├── Lösung\
-│   │   ├── Hallo\
-│   │   │   ├── Hallo.class
-│   │   │   ├── Hallo.java
+│   │   ├── Teilaufgabe\
+│   │   │   ├── Teilaufgabe.class
+│   │   │   ├── Teilaufgabe.java
 |   |   |   ⇣
 │   │   ├── 123456789_01.jar
 │   │   ├── Lösung 1.odt
 │   │   ├── Lösung 1.pdf
-│   │   ├── UML 2d.odg
-│   │   ├── UML 2d.pdf
-│   │   ├── UML 2i.odg
-│   │   ├── UML 2i.pdf
+│   │   ├── Teilaufgabe.odg
+│   │   ├── Teilaufgabe.pdf
 |   |   ⇣
 │   ├── Aufgabenblatt 1.pdf
 |   ⇣
 ├── Aufgabenblatt 2\
 ⇣
 ```
+
+Die `.jar`-Datei wird standardmäßig beim Generieren überschrieben.
+Dabei werden gewisse Dateitypen (`.odt`, `.class`), sowie IDE-abhängige Ordner (`.idea\`) ignoriert.
 
 <a name="Configuration"></a>
 

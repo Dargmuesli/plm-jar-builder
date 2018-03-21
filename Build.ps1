@@ -93,7 +93,7 @@ Function New-Readme {
 
     Write-Host "Generating README..." -ForegroundColor "Cyan"
     $ReadmeRoot = Get-Content -Path ".\README\root.md" -Raw -Encoding "UTF8"
-    $ReadmeModules = New-ModuleMarkdown -SourcePath @(".\$ModuleName\Modules\") -DocPath "$ModuleName/Docs" -Sort
+    $ReadmeModules = New-ModuleMarkdown -SourcePath @(".\$ModuleName\Modules\") -DocPath "$ModuleName/Docs"
     $Readme = Join-MultiLineStrings -MultiLineStrings @($ReadmeRoot, $ReadmeModules) -Newline
     [System.IO.File]::WriteAllLines("${PSScriptRoot}\README.md", $Readme)
 }

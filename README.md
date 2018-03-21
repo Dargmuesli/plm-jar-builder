@@ -165,7 +165,7 @@ Das Passwort kann nur vom selben Windows-Account wieder entschlüsselt werden, m
 ### Installation von Abhängigkeiten
 Die Installation von Abhängigkeiten wird über das PowerShell-Modul [PSDepend](https://github.com/RamblingCookieMonster/PSDepend) realisiert. Die dortige, aktuelle Implementierung der Abhängigkeitsauflösung von GitHub-Projekten nicht wirklich ausgefeilt ist, dauert es oft lange bis alle Abhängigkeiten installiert sind. Besonders bei der Ausführung des Assistenten (`Invoke-PlmJarBuilder`) stört dies, sodass die Option `-SkipDependencyCheck` eingerichtet wurde, die die Abhängigkeitsauflösung verhindert. Gleichzeitig wird aber auch die Suche nach Updates übersprungen.
 
-Der PLM-Jar-Builder nutzt u.a. das Projekt [Dargmuesli/powershell-lib](https://github.com/Dargmuesli/powershell-lib) von GitHub, das mit der derzeitigen Implementierung bei jeder Ausführung des Assistenten neu heruntergeladen wird. Es gibt bereits [einen neue Version](https://github.com/RamblingCookieMonster/PSDepend/pull/46) der GitHub-Installationsmethode über PSDepend, aber diese wurde dem Projekt noch nicht offiziell hinzugefügt.
+Der PLM-Jar-Builder nutzt u.a. das Projekt [Dargmuesli/PowerShell-Lib](https://github.com/Dargmuesli/PowerShell-Lib) von GitHub, das mit der derzeitigen Implementierung bei jeder Ausführung des Assistenten neu heruntergeladen wird. Es gibt bereits [einen neue Version](https://github.com/RamblingCookieMonster/PSDepend/pull/46) der GitHub-Installationsmethode über PSDepend, aber diese wurde dem Projekt noch nicht offiziell hinzugefügt.
 
 <a name="Modules"></a>
 

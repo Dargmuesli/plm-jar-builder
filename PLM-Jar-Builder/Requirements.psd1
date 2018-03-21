@@ -1,5 +1,5 @@
 @{
-    "dargmuesli/powershell-lib" = @{
+    "dargmuesli/PowerShell-Lib" = @{
         "Version" = "latest"
     }
     "Pester"                    = @{

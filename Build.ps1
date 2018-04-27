@@ -7,7 +7,7 @@
 Set-StrictMode -Version Latest
 
 $ModuleName = "PLM-Jar-Builder"
-$RequirementsPath = "${PSScriptRoot}\$ModuleName\Requirements.psd1"
+$RequirementsPath = Join-Path -Path $PSScriptRoot -ChildPath $ModuleName | Join-Path -ChildPath "Requirements.psd1"
 $PackageDependencies = @()
 
 Function Import-RootModule {
@@ -15,7 +15,7 @@ Function Import-RootModule {
         [Switch] $Only
     )
 
-    Import-Module -Name "${PSScriptRoot}\$ModuleName\$ModuleName.psd1" -Force
+    Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath $ModuleName | Join-Path -ChildPath "$ModuleName.psd1") -Force
 }
 
 Function Install-Dependencies {
@@ -26,7 +26,6 @@ Function Install-Dependencies {
     Write-Host "Installing dependencies..." -ForegroundColor "Cyan"
 
     If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
-        # Required version needed until https://github.com/appveyor/ci/issues/2013 gets solved
         Install-Module -Name "PSDepend" -Scope "CurrentUser" -Force
     }
 
@@ -56,14 +55,14 @@ Function Clear-BuildFolders {
     )
 
     Write-Host "Clearing build folders..." -ForegroundColor "Cyan"
-    $BuildFolders = @("$ModuleName\Docs", "$ModuleName\en-US")
+    $BuildFolders = @((Join-Path -Path $ModuleName -ChildPath "Docs"), (Join-Path -Path $ModuleName -ChildPath "en-US"))
 
     ForEach ($BuildFolder In $BuildFolders) {
         If (-Not (Test-Path $BuildFolder)) {
             New-Item -Path $BuildFolder -ItemType "Directory" -Force
         }
 
-        Get-ChildItem -Path "$BuildFolder\*" | ForEach-Object {
+        Get-ChildItem -Path (Join-Path -Path $BuildFolder -ChildPath "*") | ForEach-Object {
             Get-ChildItem -Path $PSItem
             Remove-Item -Path $PSItem
         }
@@ -81,9 +80,9 @@ Function New-Help {
     }
 
     Write-Host "Generating markdown help..." -ForegroundColor "Cyan"
-    New-MarkdownHelp -Module "$ModuleName" -OutputFolder ".\$ModuleName\Docs" -Locale "en-US"
+    New-MarkdownHelp -Module "$ModuleName" -OutputFolder (Join-Path -Path $PSScriptRoot -ChildPath $ModuleName | Join-Path -ChildPath "Docs") -Locale "en-US"
     Write-Host "Generating external help..." -ForegroundColor "Cyan"
-    New-ExternalHelp -Path ".\$ModuleName\Docs" -OutputPath ".\$ModuleName\en-US"
+    New-ExternalHelp -Path (Join-Path -Path $PSScriptRoot -ChildPath $ModuleName | Join-Path -ChildPath "Docs") -OutputPath (Join-Path -Path $PSScriptRoot -ChildPath $ModuleName | Join-Path -ChildPath "en-US")
 }
 
 Function New-Readme {
@@ -92,10 +91,10 @@ Function New-Readme {
     )
 
     Write-Host "Generating README..." -ForegroundColor "Cyan"
-    $ReadmeRoot = Get-Content -Path ".\README\root.md" -Raw -Encoding "UTF8"
-    $ReadmeModules = New-ModuleMarkdown -SourcePath @(".\$ModuleName\Modules\") -DocPath "$ModuleName/Docs"
+    $ReadmeRoot = Get-Content -Path (Join-Path -Path $PSScriptRoot -ChildPath "README" | Join-Path -ChildPath "root.md") -Raw -Encoding "UTF8"
+    $ReadmeModules = New-ModuleMarkdown -SourcePath @(Join-Path -Path $PSScriptRoot -ChildPath $ModuleName | Join-Path -ChildPath "Modules" | Join-Path -ChildPath "*") -DocPath (Join-Path -Path $ModuleName -ChildPath "Docs")
     $Readme = Join-MultiLineStrings -MultiLineStrings @($ReadmeRoot, $ReadmeModules) -Newline
-    [System.IO.File]::WriteAllLines("${PSScriptRoot}\README.md", $Readme)
+    [System.IO.File]::WriteAllLines((Join-Path -Path $PSScriptRoot -ChildPath "README.md"), $Readme)
 }
 
 Switch ($Task) {

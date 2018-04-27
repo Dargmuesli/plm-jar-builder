@@ -32,7 +32,7 @@ Zu Installation müssen in einem PowerShell-Fenster die zwei folgenden Befehle a
 
 ```PowerShell
 Install-Module "PSDepend" -Scope "CurrentUser" -Force
-Invoke-PSDepend -InputObject @{"dargmuesli/plm-jar-builder" = "latest"} -Install -Force
+Invoke-PSDepend -InputObject @{"dargmuesli/PLM-Jar-Builder" = "latest"} -Install -Force
 ```
 
 <a name="Usage"></a>

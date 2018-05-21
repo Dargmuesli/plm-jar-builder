@@ -130,10 +130,10 @@ Function Get-ExerciseFolder {
         If ($Newest) {
             $BiggestNumber = 0
             $BiggestNumberIndex = 0
-            
+
             For ($I = 0; $I -Lt $ExercisePath.Length; $I++) {
                 $CurrentNumber = [Int] $ExerciseSheetRegex.Match($ExercisePath[$I]).Groups[1].Value
-        
+
                 If ($CurrentNumber -Gt $BiggestNumber) {
                     $BiggestNumber = $CurrentNumber
                     $BiggestNumberIndex = $I
@@ -205,7 +205,7 @@ Function New-PlmJar {
         [Switch] $NoNote,
 
         [ValidateNotNull()]
-        [String[]] $Exclude = @(".*\.class", ".*\.eml", ".*\.iml", ".*\.jar", ".*\.odt", ".*\.odg", ".*\.old", "[^\\]+\\\.idea\\.*", ".*\\In\.java", "[^\\]+\\out\\.*", ".*\\Out\.java"),
+        [String[]] $Exclude = @(".*\.class", ".*\.eml", ".*\.iml", ".*\.jar", ".*\.odt", ".*\.odg", ".*\.ods", ".*\.old", "[^\\]+\\\.idea\\.*", ".*\\In\.java", "[^\\]+\\out\\.*", ".*\\Out\.java"),
 
         [ValidateNotNullOrEmpty()]
         [Int] $MatriculationNumber
@@ -247,13 +247,13 @@ Function New-PlmJar {
             Get-ChildItem -Path "$SolutionPathAbsolute" -Recurse -File |
                 Where-Object {
                 $FullNameDiff = $PSItem.FullName.TrimStart($SolutionPathAbsolute)
-  
+
                 For ($I = 0; $I -Lt $Exclude.Count; $I++) {
                     If ($PSItem.FullName -Match $Exclude[$I]) {
                         Return $False
                     }
                 }
-                    
+
                 Return $True
             }
         )

@@ -252,7 +252,7 @@ Function Initialize-PlmSession {
     $Form = $Request.Forms[0]
     $Form.Fields["UserID"] = $UserUsername
     $Form.Fields["Password"] = $UserPasswordLocal
-    # Due to bad weblayout the default is to send a new password to you email!
+    # Due to bad weblayout the default is to send a new password to your email!
     # This unwanted effect is hereby corrected.
     $Form.Fields["action"] = "Anmelden"
 

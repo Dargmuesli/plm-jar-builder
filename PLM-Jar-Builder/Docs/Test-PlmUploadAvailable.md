@@ -28,7 +28,7 @@ If they are $False is returned, otherwise $True.
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 $UploadUri = Get-PlmUri -Type "Upload"
 ```

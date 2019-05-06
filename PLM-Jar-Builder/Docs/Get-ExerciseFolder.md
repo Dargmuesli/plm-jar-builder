@@ -32,7 +32,7 @@ The "Get-ExerciseFolder" cmdlet searches an exercise root path for folders match
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
 ```

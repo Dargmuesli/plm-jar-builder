@@ -27,7 +27,7 @@ The "Get-PlmJarBuilderVariable" cmdlet returns a local script variable or lists 
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Get-PlmJarBuilderVariable -Name "ModuleName"
 ```

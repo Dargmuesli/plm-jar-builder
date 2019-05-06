@@ -27,7 +27,7 @@ The "Set-PlmJarBuilderConfigProperty" cmdlet gets the correct PLM-Jar-Builder co
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Set-PlmJarBuilderConfigProperty
 ```

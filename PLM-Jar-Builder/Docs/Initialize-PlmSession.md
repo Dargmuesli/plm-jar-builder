@@ -24,7 +24,7 @@ The user should be logged in then, otherwise an error is thrown.
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Initialize-PlmSession -PlmUsername "PLM" -UserUsername 123456789
 ```

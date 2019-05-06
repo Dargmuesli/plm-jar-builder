@@ -21,7 +21,7 @@ The "Find-MatriculationNumber" cmdlet searches an exercise root path for files m
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Find-MatriculationNumber -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
 ```

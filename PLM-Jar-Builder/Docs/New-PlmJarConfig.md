@@ -24,7 +24,7 @@ The "New-PlmJarConfig" cmdlet creates a new PLM-Jar-Builder configuration file c
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 New-PlmJarConfig
 ```

@@ -21,7 +21,7 @@ The "Set-PlmJarBuilderVariable" cmdlet sets a local script variable to a specifi
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Set-PlmJarBuilderVariable -Name "ModuleName" -Value "PLM-Jar-Builder"
 ```

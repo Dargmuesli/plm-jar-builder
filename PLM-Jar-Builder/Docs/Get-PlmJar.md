@@ -42,7 +42,7 @@ It either returns all available download options or downloads the specified arch
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 $UserUsername = "123456789"
 ```

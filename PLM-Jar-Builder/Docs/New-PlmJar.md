@@ -35,7 +35,7 @@ The "New-PlmJar" cmdlet retrieves exercise folder paths and creates a jar file, 
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 New-PlmJar -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
 ```

@@ -22,7 +22,7 @@ If the upload site currently does allow uploads a HTTPS post request for the giv
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 $Session = Initialize-PlmSession -PlmUsername "PLM" -UserUsername $UserUsername
 ```

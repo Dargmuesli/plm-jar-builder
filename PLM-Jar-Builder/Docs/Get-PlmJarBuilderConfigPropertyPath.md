@@ -21,7 +21,7 @@ The "Get-PlmJarBuilderConfigPropertyPath" cmdlet returns property name's PLM-Jar
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Get-PlmJarBuilderConfigPropertyPath -PropertyName "ExerciseRootPath"
 ```

@@ -21,7 +21,7 @@ The "Invoke-PlmJarBuilder" cmdlet leads through the execution of possible PLM-Ja
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Invoke-PlmJarBuilder
 ```

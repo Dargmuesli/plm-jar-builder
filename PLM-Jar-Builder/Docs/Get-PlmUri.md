@@ -21,7 +21,7 @@ The "Get-PlmUri" cmdlet builds a PLM-URI from its base components and the given 
 
 ## EXAMPLES
 
-### BEISPIEL 1
+### EXAMPLE 1
 ```
 Get-PlmUri -Type "Login"
 ```

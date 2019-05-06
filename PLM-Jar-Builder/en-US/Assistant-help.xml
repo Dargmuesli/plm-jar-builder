@@ -97,7 +97,7 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>Invoke-PlmJarBuilder</dev:code>
         <dev:remarks>
           <maml:para></maml:para>

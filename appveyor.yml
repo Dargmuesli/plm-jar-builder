@@ -1,6 +1,13 @@
+environment:
+  matrix:
+  - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    clone_folder: /home/appveyor/projects/PowerShell-Lib
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    clone_folder: c:\projects\PowerShell-Lib
+
 version: '{build}'
 
-image: Visual Studio 2017
+clone_folder: $(clone_folder)
 
 init:
   - ps: |

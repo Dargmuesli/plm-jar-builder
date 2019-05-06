@@ -19,7 +19,7 @@ Test-PlmUploadAvailable [-Session] <WebRequestSession> [<CommonParameters>]
 
 ### Request
 ```
-Test-PlmUploadAvailable [-Request] <HtmlWebResponseObject> [<CommonParameters>]
+Test-PlmUploadAvailable [-Request] <BasicHtmlWebResponseObject> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -62,7 +62,7 @@ Accept wildcard characters: False
 A web request to PLM's upload site.
 
 ```yaml
-Type: HtmlWebResponseObject
+Type: BasicHtmlWebResponseObject
 Parameter Sets: Request
 Aliases:
 

@@ -1,4 +1,4 @@
-<#
+﻿<#
     .SYNOPSIS
     Downloads a PLM-Jar from the PLM webservice.
 
@@ -449,7 +449,7 @@ Function Test-PlmUploadAvailable {
             Position = 0
         )]
         [ValidateNotNullOrEmpty()]
-        [Microsoft.PowerShell.Commands.HtmlWebResponseObject] $Request
+        [Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject] $Request
     )
 
     $LocalRequest = $Null

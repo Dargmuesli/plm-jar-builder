@@ -1,4 +1,4 @@
-﻿<#
+<#
     .SYNOPSIS
     Downloads a PLM-Jar from the PLM webservice.
 
@@ -314,7 +314,7 @@ Function Publish-PlmJar {
     If (Test-Path -Path $Path -PathType "Container") {
         $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $Path -Newest
         $SolutionPath = (Get-PlmJarBuilderConfigProperty -PropertyName "SolutionPath").SolutionPath
-        $JarFile = Get-ChildItem -Path "$($ExerciseFolder.FullName)\$SolutionPath" -Filter "*.jar" -File |
+        $JarFile = Get-ChildItem -Path (Join-Path -Path $ExerciseFolder.FullName $SolutionPath) -Filter "*.jar" -File |
             Where-Object {
             $PSItem.Name -Match $JarFileRegex
         }

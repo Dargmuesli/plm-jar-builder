@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -317,7 +317,7 @@
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>"$([Environment]::GetFolderPath("MyDocuments"))\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"</dev:defaultValue>
+          <dev:defaultValue>(Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) "Universität" "Informatik" "Semester 1" "Einführung in die Programmierung" "Übungen")</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
           <maml:name>JarFileRegex</maml:name>
@@ -451,7 +451,7 @@
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>"$([Environment]::GetFolderPath("MyDocuments"))\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"</dev:defaultValue>
+        <dev:defaultValue>(Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) "Universität" "Informatik" "Semester 1" "Einführung in die Programmierung" "Übungen")</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>DownloadPath</maml:name>

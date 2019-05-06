@@ -2,11 +2,11 @@
 [String] $ModuleAuthorUsername = "dargmuesli"
 [String] $ModuleName = "PLM-Jar-Builder"
 
-[String] $ConfigPath = "$PSScriptRoot\..\Config"
+[String] $ConfigPath = (Join-Path -Path $PSScriptRoot ".." "Config")
 [String] $ConfigFileName = "$ModuleName.json"
-[String] $ConfigFilePath = "$ConfigPath\$ConfigFileName"
+[String] $ConfigFilePath = (Join-Path -Path $ConfigPath $ConfigFileName)
 [String] $NoteFileName = "$ModuleName-Note.md"
-[String] $NoteFilePath = "$ConfigPath\$NoteFileName"
+[String] $NoteFilePath = (Join-Path -Path $ConfigPath $NoteFileName)
 
 [String] $ExerciseNumberFormat = "00"
 [String] $PlmPageIdFormat = "000"
@@ -252,7 +252,7 @@ Function Get-PlmJarBuilderVariable {
 Function New-PlmJarConfig {
     Param (
         [ValidateScript({Test-Path -Path $PSItem})]
-        [String] $ExerciseRootPath = "$([Environment]::GetFolderPath("MyDocuments"))\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen",
+        [String] $ExerciseRootPath = (Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) "Universität" "Informatik" "Semester 1" "Einführung in die Programmierung" "Übungen"),
 
         [ValidateScript({Test-Path -Path $PSItem})]
         [String] $DownloadPath = (Get-DownloadFolder),

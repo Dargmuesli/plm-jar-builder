@@ -1,6 +1,6 @@
 Set-StrictMode -Version Latest
 
-Import-Module -Name "${PSScriptRoot}\..\..\PLM-Jar-Builder\PLM-Jar-Builder.psd1" -Force
+Import-Module -Name (Join-Path -Path $PSScriptRoot ".." ".." "PLM-Jar-Builder" "PLM-Jar-Builder.psd1") -Force
 
 Describe "PLM-Jar-Builder" {
     $NestedModules = (Get-Module PLM-Jar-Builder).NestedModules

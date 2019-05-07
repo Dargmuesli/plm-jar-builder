@@ -41,7 +41,7 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: "$([Environment]::GetFolderPath("MyDocuments"))\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
+Default value: (Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) "Universität" "Informatik" "Semester 1" "Einführung in die Programmierung" "Übungen")
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

@@ -1,4 +1,4 @@
-﻿<#
+<#
     .SYNOPSIS
     Finds a matriculation number.
 
@@ -25,7 +25,7 @@ Function Find-MatriculationNumber {
             Mandatory = $True,
             Position = 0
         )]
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $ExerciseRootPath,
 
         [Switch] $All
@@ -90,7 +90,7 @@ Function Get-ExerciseFolder {
         [Parameter(
             ParameterSetName = "Newest"
         )]
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $ExerciseRootPath,
 
         [Parameter(
@@ -112,16 +112,16 @@ Function Get-ExerciseFolder {
     $ExerciseSheetRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseSheetRegex").ExerciseSheetRegex
 
     # Get all exercise directories
-    $ExercisePath = Get-ChildItem -Path $ExerciseRootPath -Directory |
+    $ExercisePath = Get-ChildItem -Path $ExerciseRootPath -Directory -Name |
         Where-Object {
-        $PSItem.Name -Match $ExerciseSheetRegex
+        $PSItem -Match $ExerciseSheetRegex
     }
 
     # Filter exercise numbers
     If ($ExerciseNumber.Length) {
         $ExercisePath = $ExercisePath |
             Where-Object {
-            $ExerciseNumber -Contains $ExerciseSheetRegex.Match($PSItem.Name).Groups[1].Value
+            $ExerciseNumber -Contains $ExerciseSheetRegex.Match($PSItem).Groups[1].Value
         }
     }
 
@@ -186,7 +186,7 @@ Function New-PlmJar {
 
     Param (
         [Parameter(Mandatory = $True)]
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $ExerciseRootPath,
 
         [Parameter(
@@ -236,7 +236,7 @@ Function New-PlmJar {
         $ExerciseNumberFormat = [String] (Get-PlmJarBuilderVariable -Name "ExerciseNumberFormat")
         $ExerciseNumberZeroed = ([Int] $ExerciseSheetRegex.Match($ExercisePath.Name).Groups[1].Value).ToString($ExerciseNumberFormat)
         $SolutionPath = (Get-PlmJarBuilderConfigProperty -PropertyName "SolutionPath").SolutionPath
-        $SolutionPathAbsolute = "$($ExercisePath.FullName)\$SolutionPath"
+        $SolutionPathAbsolute = (Join-Path -Path $ExercisePath.FullName -ChildPath $SolutionPath)
 
         If (-Not (Test-Path $SolutionPathAbsolute)) {
             # Solution path does not exist
@@ -269,7 +269,7 @@ Function New-PlmJar {
         ForEach ($File In $Files) {
             $IsSolutionPathSubdirectory = ($File.DirectoryName).StartsWith($SolutionPathAbsolute)
             If ($IsSolutionPathSubdirectory) {
-                $RelativeFilePath = ($File.FullName).Replace("$SolutionPathAbsolute\", "")
+                $RelativeFilePath = ($File.FullName).Replace("$SolutionPathAbsolute$([IO.Path]::DirectorySeparatorChar)", "")
                 $FileString += " -C `"$SolutionPathAbsolute`" `"$RelativeFilePath`""
             } Else {
                 $FileString += " -C `"$($File.DirectoryName)`" `"$($File.Name)`""
@@ -284,7 +284,7 @@ Function New-PlmJar {
             $JarName = "Lösung_$ExerciseNumberZeroed.jar"
         }
 
-        $JarFullName = "$SolutionPathAbsolute\$JarName"
+        $JarFullName = (Join-Path $SolutionPathAbsolute $JarName)
 
         Write-Verbose "Executing `"jar cvf`""
         Invoke-Expression "jar cvfM `"$JarFullName`"$FileString"

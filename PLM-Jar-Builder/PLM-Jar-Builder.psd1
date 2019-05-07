@@ -24,10 +24,10 @@
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
     NestedModules     = @(
-        'Modules\Assistant.psm1',
-        'Modules\Config.psm1',
-        'Modules\JAR.psm1',
-        'Modules\PLM.psm1'
+        Join-Path -Path 'Modules' -ChildPath 'Assistant.psm1'
+        Join-Path -Path 'Modules' -ChildPath 'Config.psm1'
+        Join-Path -Path 'Modules' -ChildPath 'JAR.psm1'
+        Join-Path -Path 'Modules' -ChildPath 'PLM.psm1'
     )
 
     # Functions to export from this module

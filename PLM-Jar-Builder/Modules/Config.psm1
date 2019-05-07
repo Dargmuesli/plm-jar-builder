@@ -1,12 +1,12 @@
-﻿[String] $ModuleAuthor = "Jonas Thelemann"
+[String] $ModuleAuthor = "Jonas Thelemann"
 [String] $ModuleAuthorUsername = "dargmuesli"
 [String] $ModuleName = "PLM-Jar-Builder"
 
-[String] $ConfigPath = "$PSScriptRoot\..\Config"
+[String] $ConfigPath = (Join-Path -Path $PSScriptRoot -ChildPath ".." | Join-Path -ChildPath "Config")
 [String] $ConfigFileName = "$ModuleName.json"
-[String] $ConfigFilePath = "$ConfigPath\$ConfigFileName"
+[String] $ConfigFilePath = (Join-Path -Path $ConfigPath -ChildPath $ConfigFileName)
 [String] $NoteFileName = "$ModuleName-Note.md"
-[String] $NoteFilePath = "$ConfigPath\$NoteFileName"
+[String] $NoteFilePath = (Join-Path -Path $ConfigPath -ChildPath $NoteFileName)
 
 [String] $ExerciseNumberFormat = "00"
 [String] $PlmPageIdFormat = "000"
@@ -251,10 +251,10 @@ Function Get-PlmJarBuilderVariable {
 #>
 Function New-PlmJarConfig {
     Param (
-        [ValidateScript({Test-Path -Path $PSItem})]
-        [String] $ExerciseRootPath = "$([Environment]::GetFolderPath("MyDocuments"))\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen",
+        [ValidateScript( { Test-Path -Path $PSItem })]
+        [String] $ExerciseRootPath = (Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) -ChildPath "Universität" | Join-Path -ChildPath "Informatik" | Join-Path -ChildPath "Semester 1" | Join-Path -ChildPath "Einführung in die Programmierung" | Join-Path -ChildPath "Übungen"),
 
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $DownloadPath = (Get-DownloadFolder),
 
         [ValidateNotNull()]

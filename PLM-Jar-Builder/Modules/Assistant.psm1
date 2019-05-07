@@ -1,4 +1,4 @@
-﻿<#
+<#
     .SYNOPSIS
     Invokes the PLM-Jar-Builder.
 
@@ -30,7 +30,7 @@ Function Invoke-PlmJarBuilder {
     Write-Host "$($MyInvocation.MyCommand.Module.Name) $($MyInvocation.MyCommand.Version)"
 
     # Check online status and install dependencies if connected to the internet
-    If (-Not (Test-Connection -ComputerName "google.com" -Count 1 -Quiet)) {
+    If (-Not (Test-Connection -ComputerName "1.1.1.1" -Count 1 -Quiet)) {
         $Offline = $True
 
         # Internet connection test failed. Operating in offline mode...
@@ -47,7 +47,7 @@ Function Invoke-PlmJarBuilder {
                 Install-Module -Name "PSDepend" -Scope "CurrentUser"
             }
 
-            Invoke-PSDepend -Path "${PSScriptRoot}\..\Requirements.psd1" -Install -Import -Force
+            Invoke-PSDepend -Path (Join-Path -Path $PSScriptRoot -ChildPath ".." | Join-Path -ChildPath "Requirements.psd1") -Install -Import -Force
         }
 
         If (-Not $SkipUpdateCheck) {
@@ -94,9 +94,11 @@ Function Invoke-PlmJarBuilder {
     # Loaded configuration
     Write-Host "Geladene Konfiguration:" -ForegroundColor "Yellow"
 
-    $ExerciseRootPath = (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath").ExerciseRootPath.TrimEnd("\")
+    $ExerciseRootPath = (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath").ExerciseRootPath
+    $ExerciseRootPath = $ExerciseRootPath.Substring(0, $ExerciseRootPath.Length - 1)
     Write-MultiColor -Text @("ExerciseRootPath = ", $ExerciseRootPath) -Color White, Cyan
-    $DownloadPath = (Get-PlmJarBuilderConfigProperty -PropertyName "DownloadPath").DownloadPath.TrimEnd("\")
+    $DownloadPath = (Get-PlmJarBuilderConfigProperty -PropertyName "DownloadPath").DownloadPath
+    $DownloadPath = $DownloadPath.Substring(0, $DownloadPath.Length - 1)
     Write-MultiColor -Text @("DownloadPath = ", $DownloadPath) -Color ("White", "Cyan")
     $Exclude = (Get-PlmJarBuilderConfigProperty -PropertyName "Exclude").Exclude
     Write-MultiColor -Text @("Exclude = ", $Exclude) -Color ("White", "Cyan")
@@ -380,8 +382,8 @@ Wahl
                             $ExerciseRootPath = Read-ValidInput `
                                 -Prompt "Der Pfad, in dem sich die Aufgaben-Ordern befinden" `
                                 -ValidityCheck @(
-                                {Test-Path $args[0]}
-                                {Get-ExerciseFolder -ExerciseRootPath $args[0]}
+                                { Test-Path $args[0] }
+                                { Get-ExerciseFolder -ExerciseRootPath $args[0] }
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiger Pfad!"
@@ -400,7 +402,7 @@ Wahl
                         $Path = (Read-ValidInput `
                                 -Prompt "Der Pfad zur .jar-Datei, die hochgeladen werden soll" `
                                 -ValidityCheck @(
-                                {[System.IO.Path]::GetExtension($args[0].Replace("`"", "")) -Eq ".jar"}
+                                { [System.IO.Path]::GetExtension($args[0].Replace("`"", "")) -Eq ".jar" }
                             ) `
                                 -ErrorMessage @(
                                 "Nicht eine .jar-Datei!"
@@ -461,7 +463,7 @@ Wahl
                     $DownloadPath = Read-ValidInput `
                         -Prompt "Der Pfad, in den die .jar-Dateien heruntergeladen werden sollen" `
                         -ValidityCheck @(
-                        {Test-Path $args[0]}
+                        { Test-Path $args[0] }
                     ) `
                         -ErrorMessage @(
                         "Ungültiger Pfad!"
@@ -490,7 +492,7 @@ Welche Aufgabennummern sollen heruntergeladen werden?
 
 Wahl
 "@ `
-                    -ValidityCheck {@(1, 2, 3) -Contains $args[0]} `
+                    -ValidityCheck { @(1, 2, 3) -Contains $args[0] } `
                     -ErrorMessage "Ungültige Wahl!"
 
                 Switch ($Answer) {
@@ -522,7 +524,7 @@ Wahl
                         $ExerciseNumber = [Int[]](Read-ValidInput `
                                 -Prompt "Kommagetrennte Aufgabennummern" `
                                 -ValidityCheck @(
-                                {$args[0].Split(",").Trim() -Match "^(\d{1,2}, )*\d{1,2}$"}
+                                { $args[0].Split(",").Trim() -Match "^(\d{1,2}, )*\d{1,2}$" }
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiges Format!"

@@ -1,7 +1,7 @@
 Set-StrictMode -Version Latest
 
-Import-Module -Name "${PSScriptRoot}\..\..\..\PLM-Jar-Builder\PLM-Jar-Builder.psd1" -Force
-Import-Module -Name "${PSScriptRoot}\..\..\..\PLM-Jar-Builder\Modules\Config.psm1" -Force
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath ".." | Join-Path -ChildPath ".." | Join-Path -ChildPath ".." | Join-Path -ChildPath "PLM-Jar-Builder" | Join-Path -ChildPath "PLM-Jar-Builder.psd1") -Force
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath ".." | Join-Path -ChildPath ".." | Join-Path -ChildPath ".." | Join-Path -ChildPath "PLM-Jar-Builder" | Join-Path -ChildPath "Modules" | Join-Path -ChildPath "Config.psm1") -Force
 
 $ConfigFilePath = "TestDrive:\config.json"
 
@@ -72,11 +72,11 @@ Describe "Get-PlmJarBuilderConfigProperty" {
         It "returns the property" {
             # Parameters: "PropertyName"
             $PlmJarConfigProperty = (Get-PlmJarBuilderConfigProperty -PropertyName "Test")
-            $PlmJarConfigProperty | ConvertTo-Json | Should Be (@{"Test" = 1} | ConvertTo-Json)
+            $PlmJarConfigProperty | ConvertTo-Json | Should Be (@{"Test" = 1 } | ConvertTo-Json)
 
             # Parameters: "PropertyPath"
             $PlmJarConfigProperty = Get-PlmJarBuilderConfigProperty -PropertyPath "ABC.Test"
-            $PlmJarConfigProperty | ConvertTo-Json | Should Be (@{"Test" = 1} | ConvertTo-Json)
+            $PlmJarConfigProperty | ConvertTo-Json | Should Be (@{"Test" = 1 } | ConvertTo-Json)
         }
     }
 

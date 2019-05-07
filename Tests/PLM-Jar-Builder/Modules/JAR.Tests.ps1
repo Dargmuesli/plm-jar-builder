@@ -1,7 +1,7 @@
 Set-StrictMode -Version Latest
 
-Import-Module -Name "${PSScriptRoot}\..\..\..\PLM-Jar-Builder\PLM-Jar-Builder.psd1" -Force
-Import-Module -Name "${PSScriptRoot}\..\..\..\PLM-Jar-Builder\Modules\JAR.psm1" -Force
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath ".." | Join-Path -ChildPath ".." | Join-Path -ChildPath ".." | Join-Path -ChildPath "PLM-Jar-Builder" | Join-Path -ChildPath "PLM-Jar-Builder.psd1") -Force
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath ".." | Join-Path -ChildPath ".." | Join-Path -ChildPath ".." | Join-Path -ChildPath "PLM-Jar-Builder" | Join-Path -ChildPath "Modules" | Join-Path -ChildPath "JAR.psm1") -Force
 
 Describe "Find-MatriculationNumber" {
     $CorrectPath = "TestDrive:\Correct"
@@ -47,12 +47,12 @@ Describe "Get-ExerciseFolder" {
     $WrongExerciseRootPath = "TestDrive:\Subfolder\WrongExerciseRootPath"
 
     New-Item -Path @(
-        "$CorrectExerciseRootPath\Aufgabenblatt 1"
-        "$CorrectExerciseRootPath\Aufgabenblatt 2"
-        "$CorrectExerciseRootPath\Aufgabenblatt 10"
-        "$CorrectExerciseRootPath\Aufgabenblatt 100"
-        "$CorrectExerciseRootPath\x"
-        "$WrongExerciseRootPath"
+        Join-Path -Path $CorrectExerciseRootPath -ChildPath "Aufgabenblatt 1"
+        Join-Path -Path $CorrectExerciseRootPath -ChildPath "Aufgabenblatt 2"
+        Join-Path -Path $CorrectExerciseRootPath -ChildPath "Aufgabenblatt 10"
+        Join-Path -Path $CorrectExerciseRootPath -ChildPath "Aufgabenblatt 100"
+        Join-Path -Path $CorrectExerciseRootPath -ChildPath "x"
+        $WrongExerciseRootPath
     ) -ItemType "Directory" -Force
 
     Context "Exercise folders exist" {

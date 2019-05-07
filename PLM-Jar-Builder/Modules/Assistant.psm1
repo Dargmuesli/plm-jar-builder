@@ -1,4 +1,4 @@
-﻿<#
+<#
     .SYNOPSIS
     Invokes the PLM-Jar-Builder.
 
@@ -47,7 +47,7 @@ Function Invoke-PlmJarBuilder {
                 Install-Module -Name "PSDepend" -Scope "CurrentUser"
             }
 
-            Invoke-PSDepend -Path (Join-Path -Path $PSScriptRoot ".." "Requirements.psd1") -Install -Import -Force
+            Invoke-PSDepend -Path (Join-Path -Path $PSScriptRoot -ChildPath ".." | Join-Path -ChildPath "Requirements.psd1") -Install -Import -Force
         }
 
         If (-Not $SkipUpdateCheck) {
@@ -382,8 +382,8 @@ Wahl
                             $ExerciseRootPath = Read-ValidInput `
                                 -Prompt "Der Pfad, in dem sich die Aufgaben-Ordern befinden" `
                                 -ValidityCheck @(
-                                {Test-Path $args[0]}
-                                {Get-ExerciseFolder -ExerciseRootPath $args[0]}
+                                { Test-Path $args[0] }
+                                { Get-ExerciseFolder -ExerciseRootPath $args[0] }
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiger Pfad!"
@@ -402,7 +402,7 @@ Wahl
                         $Path = (Read-ValidInput `
                                 -Prompt "Der Pfad zur .jar-Datei, die hochgeladen werden soll" `
                                 -ValidityCheck @(
-                                {[System.IO.Path]::GetExtension($args[0].Replace("`"", "")) -Eq ".jar"}
+                                { [System.IO.Path]::GetExtension($args[0].Replace("`"", "")) -Eq ".jar" }
                             ) `
                                 -ErrorMessage @(
                                 "Nicht eine .jar-Datei!"
@@ -463,7 +463,7 @@ Wahl
                     $DownloadPath = Read-ValidInput `
                         -Prompt "Der Pfad, in den die .jar-Dateien heruntergeladen werden sollen" `
                         -ValidityCheck @(
-                        {Test-Path $args[0]}
+                        { Test-Path $args[0] }
                     ) `
                         -ErrorMessage @(
                         "Ungültiger Pfad!"
@@ -492,7 +492,7 @@ Welche Aufgabennummern sollen heruntergeladen werden?
 
 Wahl
 "@ `
-                    -ValidityCheck {@(1, 2, 3) -Contains $args[0]} `
+                    -ValidityCheck { @(1, 2, 3) -Contains $args[0] } `
                     -ErrorMessage "Ungültige Wahl!"
 
                 Switch ($Answer) {
@@ -524,7 +524,7 @@ Wahl
                         $ExerciseNumber = [Int[]](Read-ValidInput `
                                 -Prompt "Kommagetrennte Aufgabennummern" `
                                 -ValidityCheck @(
-                                {$args[0].Split(",").Trim() -Match "^(\d{1,2}, )*\d{1,2}$"}
+                                { $args[0].Split(",").Trim() -Match "^(\d{1,2}, )*\d{1,2}$" }
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiges Format!"

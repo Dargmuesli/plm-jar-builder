@@ -1,4 +1,4 @@
-﻿<#
+<#
     .SYNOPSIS
     Downloads a PLM-Jar from the PLM webservice.
 
@@ -63,7 +63,7 @@ Function Get-PlmJar {
         [Parameter(
             ParameterSetName = "All"
         )]
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $DownloadPath = (Get-DownloadFolder),
 
         [Parameter(
@@ -129,7 +129,7 @@ Function Get-PlmJar {
                 Get-FileFromWeb -Url "$PlmUri$($DownloadLinks[$DownloadLinks.Length - 1].PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
                 Break
             }
-            {@("ExerciseNumber", "All") -Contains $PSItem} {
+            { @("ExerciseNumber", "All") -Contains $PSItem } {
                 ForEach ($DownloadLink In $DownloadLinks) {
                     Get-FileFromWeb -Url "$PlmUri$($DownloadLink.PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
                 }
@@ -304,7 +304,7 @@ Function Publish-PlmJar {
         [Microsoft.PowerShell.Commands.WebRequestSession] $Session,
 
         [Parameter(Mandatory = $True)]
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $Path
     )
 
@@ -314,7 +314,7 @@ Function Publish-PlmJar {
     If (Test-Path -Path $Path -PathType "Container") {
         $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $Path -Newest
         $SolutionPath = (Get-PlmJarBuilderConfigProperty -PropertyName "SolutionPath").SolutionPath
-        $JarFile = Get-ChildItem -Path (Join-Path -Path $ExerciseFolder.FullName $SolutionPath) -Filter "*.jar" -File |
+        $JarFile = Get-ChildItem -Path (Join-Path -Path $ExerciseFolder.FullName -ChildPath $SolutionPath) -Filter "*.jar" -File |
             Where-Object {
             $PSItem.Name -Match $JarFileRegex
         }

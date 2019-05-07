@@ -1,4 +1,4 @@
-﻿<#
+<#
     .SYNOPSIS
     Finds a matriculation number.
 
@@ -25,7 +25,7 @@ Function Find-MatriculationNumber {
             Mandatory = $True,
             Position = 0
         )]
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $ExerciseRootPath,
 
         [Switch] $All
@@ -90,7 +90,7 @@ Function Get-ExerciseFolder {
         [Parameter(
             ParameterSetName = "Newest"
         )]
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $ExerciseRootPath,
 
         [Parameter(
@@ -186,7 +186,7 @@ Function New-PlmJar {
 
     Param (
         [Parameter(Mandatory = $True)]
-        [ValidateScript({Test-Path -Path $PSItem})]
+        [ValidateScript( { Test-Path -Path $PSItem })]
         [String] $ExerciseRootPath,
 
         [Parameter(
@@ -236,7 +236,7 @@ Function New-PlmJar {
         $ExerciseNumberFormat = [String] (Get-PlmJarBuilderVariable -Name "ExerciseNumberFormat")
         $ExerciseNumberZeroed = ([Int] $ExerciseSheetRegex.Match($ExercisePath.Name).Groups[1].Value).ToString($ExerciseNumberFormat)
         $SolutionPath = (Get-PlmJarBuilderConfigProperty -PropertyName "SolutionPath").SolutionPath
-        $SolutionPathAbsolute = (Join-Path -Path $ExercisePath.FullName $SolutionPath)
+        $SolutionPathAbsolute = (Join-Path -Path $ExercisePath.FullName -ChildPath $SolutionPath)
 
         If (-Not (Test-Path $SolutionPathAbsolute)) {
             # Solution path does not exist

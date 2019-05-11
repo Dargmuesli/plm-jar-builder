@@ -317,7 +317,7 @@
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>(Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) "Universität" "Informatik" "Semester 1" "Einführung in die Programmierung" "Übungen")</dev:defaultValue>
+          <dev:defaultValue>(Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) -ChildPath "Universität" | Join-Path -ChildPath "Informatik" | Join-Path -ChildPath "Semester 1" | Join-Path -ChildPath "Einführung in die Programmierung" | Join-Path -ChildPath "Übungen")</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
           <maml:name>JarFileRegex</maml:name>
@@ -451,7 +451,7 @@
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>(Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) "Universität" "Informatik" "Semester 1" "Einführung in die Programmierung" "Übungen")</dev:defaultValue>
+        <dev:defaultValue>(Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) -ChildPath "Universität" | Join-Path -ChildPath "Informatik" | Join-Path -ChildPath "Semester 1" | Join-Path -ChildPath "Einführung in die Programmierung" | Join-Path -ChildPath "Übungen")</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>DownloadPath</maml:name>

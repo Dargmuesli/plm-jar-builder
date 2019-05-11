@@ -41,7 +41,7 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: (Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) "Universität" "Informatik" "Semester 1" "Einführung in die Programmierung" "Übungen")
+Default value: (Join-Path -Path $([Environment]::GetFolderPath("MyDocuments")) -ChildPath "Universität" | Join-Path -ChildPath "Informatik" | Join-Path -ChildPath "Semester 1" | Join-Path -ChildPath "Einführung in die Programmierung" | Join-Path -ChildPath "Übungen")
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

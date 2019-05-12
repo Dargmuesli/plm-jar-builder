@@ -69,7 +69,7 @@ Function Invoke-PlmJarBuilder {
 
                 # A new version of $ModuleName was found. Currently installed is v$ExistingVersion. Do you want to automatically update to the new version now?
                 If (Read-PromptYesNo -Caption "v$LatestRelease" -Message "Eine neue Version vom $ModuleName wurde gefunden. Aktuell installiert ist v$ExistingVersion. Soll jetzt automatisch zur neuesten Version geupdatet werden?" -DefaultChoice 0) {
-                    Invoke-PSDepend -InputObject @{"$ModuleAuthorUsername/$ModuleName" = "master"} -Install -Force
+                    Invoke-PSDepend -InputObject @{"$ModuleAuthorUsername/$ModuleName" = "master" } -Install -Force
                     Remove-Module $ModuleName
                     Import-Module $ModuleName
                     Invoke-PlmJarBuilder @PSBoundParameters
@@ -138,7 +138,7 @@ Was möchtest du tun?
 
 Wahl
 "@ `
-            -ValidityCheck {@(1, 2, 3, 4) -Contains $args[0]} `
+            -ValidityCheck { @(1, 2, 3, 4) -Contains $args[0] } `
             -ErrorMessage "Ungültige Wahl!"
 
         Switch ($Answer) {
@@ -152,8 +152,8 @@ Wahl
                     $ExerciseRootPath = Read-ValidInput `
                         -Prompt "Der Pfad, in dem sich die Aufgaben-Ordern befinden" `
                         -ValidityCheck @(
-                        {Test-Path $args[0]}
-                        {Get-ExerciseFolder -ExerciseRootPath $args[0]}
+                        { Test-Path $args[0] }
+                        { Get-ExerciseFolder -ExerciseRootPath $args[0] }
                     ) `
                         -ErrorMessage @(
                         "Ungültiger Pfad!"
@@ -182,7 +182,7 @@ Wahl
                         $Exclude = [String[]](Read-ValidInput `
                                 -Prompt "Kommagetrennte Dateitypen & Dateinamen" `
                                 -ValidityCheck @(
-                                {($args[0].Split(",").Trim() -NotMatch "^([\*\w-]+)\.([\w-]+)$").Count -Eq 0}
+                                { ($args[0].Split(",").Trim() -NotMatch "^([\*\w-]+)\.([\w-]+)$").Count -Eq 0 }
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiges Format! (Nicht `"*.abc, test.xyz`")"
@@ -214,7 +214,7 @@ Soll deine Matrikelnummer in den .jar-Dateinamen?"
 
 Wahl
 "@ `
-                        -ValidityCheck {@(1, 2, 3) -Contains $args[0]} `
+                        -ValidityCheck { @(1, 2, 3) -Contains $args[0] } `
                         -ErrorMessage "Ungültige Wahl!"
 
                     Switch ($Answer) {
@@ -225,7 +225,7 @@ Wahl
                             $MatriculationNumber = Read-ValidInput `
                                 -Prompt "Meine Matrikelnummer" `
                                 -ValidityCheck @(
-                                {$args[0] -Match "^\d+$"}
+                                { $args[0] -Match "^\d+$" }
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiges Format!"
@@ -272,7 +272,7 @@ Für welche Aufgaben möchtest du .jar-Dateien erstellen?"
 
 Wahl
 "@ `
-                    -ValidityCheck {@(1, 2, 3) -Contains $args[0]} `
+                    -ValidityCheck { @(1, 2, 3) -Contains $args[0] } `
                     -ErrorMessage "Ungültige Wahl!"
 
                 Switch ($Answer) {
@@ -291,7 +291,7 @@ Wahl
                         $ExerciseNumber = [Int[]](Read-ValidInput `
                                 -Prompt "Kommagetrennte Aufgabennummern" `
                                 -ValidityCheck @(
-                                {$args[0].Split(",").Trim() -Match "^(\d{1,2}, )*\d{1,2}$"}
+                                { $args[0].Split(",").Trim() -Match "^(\d{1,2}, )*\d{1,2}$" }
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiges Format!"
@@ -368,7 +368,7 @@ Welche .jar-Datei möchtest du hochladen?"
 
 Wahl
 "@ `
-                    -ValidityCheck {@(1, 2) -Contains $args[0]} `
+                    -ValidityCheck { @(1, 2) -Contains $args[0] } `
                     -ErrorMessage "Ungültige Wahl!"
 
                 Switch ($Answer) {

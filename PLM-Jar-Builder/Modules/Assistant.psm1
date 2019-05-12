@@ -95,10 +95,10 @@ Function Invoke-PlmJarBuilder {
     Write-Host "Geladene Konfiguration:" -ForegroundColor "Yellow"
 
     $ExerciseRootPath = (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath").ExerciseRootPath
-    $ExerciseRootPath = $ExerciseRootPath.Substring(0, $ExerciseRootPath.Length - 1)
+    $ExerciseRootPath = $ExerciseRootPath.Substring(0, $ExerciseRootPath.Length)
     Write-MultiColor -Text @("ExerciseRootPath = ", $ExerciseRootPath) -Color White, Cyan
     $DownloadPath = (Get-PlmJarBuilderConfigProperty -PropertyName "DownloadPath").DownloadPath
-    $DownloadPath = $DownloadPath.Substring(0, $DownloadPath.Length - 1)
+    $DownloadPath = $DownloadPath.Substring(0, $DownloadPath.Length)
     Write-MultiColor -Text @("DownloadPath = ", $DownloadPath) -Color ("White", "Cyan")
     $Exclude = (Get-PlmJarBuilderConfigProperty -PropertyName "Exclude").Exclude
     Write-MultiColor -Text @("Exclude = ", $Exclude) -Color ("White", "Cyan")

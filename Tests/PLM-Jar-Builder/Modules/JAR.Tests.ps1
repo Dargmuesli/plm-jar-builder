@@ -43,51 +43,70 @@ Describe "Find-MatriculationNumber" {
 }
 
 Describe "Get-ExerciseFolder" {
-    $CorrectExerciseRootPath = "TestDrive:\Subfolder\CorrectExerciseRootPath"
-    $WrongExerciseRootPath = "TestDrive:\Subfolder\WrongExerciseRootPath"
+    $ExerciseRootPath = "TestDrive:\Subfolder\ExerciseRootPath"
+
+    New-Item -Path $ExerciseRootPath -ItemType "Directory" -Force
+
+    Context "Exercise folders do not exist" {
+        It "returns null" {
+            # Parameters: "ExerciseRootPath"
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath
+            $ExerciseFolder | Should Be $Null
+
+            # Parameters: "ExerciseRootPath", "ExerciseNumber"
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -ExerciseNumber @(1, 10)
+            $ExerciseFolder | Should Be $Null
+
+            # Parameters: "ExerciseRootPath"
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -Newest
+            $ExerciseFolder | Should Be $Null
+        }
+    }
 
     New-Item -Path @(
-        Join-Path -Path $CorrectExerciseRootPath -ChildPath "Aufgabenblatt 1"
-        Join-Path -Path $CorrectExerciseRootPath -ChildPath "Aufgabenblatt 2"
-        Join-Path -Path $CorrectExerciseRootPath -ChildPath "Aufgabenblatt 10"
-        Join-Path -Path $CorrectExerciseRootPath -ChildPath "Aufgabenblatt 100"
-        Join-Path -Path $CorrectExerciseRootPath -ChildPath "x"
-        $WrongExerciseRootPath
+        Join-Path -Path $ExerciseRootPath -ChildPath "Aufgabenblatt 1"
+        Join-Path -Path $ExerciseRootPath -ChildPath "x"
+    ) -ItemType "Directory" -Force
+
+    Context "One Exercise folder exists" {
+        It "returns this exercise folder" {
+            # Parameters: "ExerciseRootPath"
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath
+            $ExerciseFolder | Should Be @("Aufgabenblatt 1")
+
+            # Parameters: "ExerciseRootPath", "ExerciseNumber"
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -ExerciseNumber @(1, 10)
+            $ExerciseFolder | Should Be @("Aufgabenblatt 1")
+
+            # Parameters: "ExerciseRootPath"
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -Newest
+            $ExerciseFolder | Should Be @("Aufgabenblatt 1")
+        }
+    }
+
+    New-Item -Path @(
+        Join-Path -Path $ExerciseRootPath -ChildPath "Aufgabenblatt 2"
+        Join-Path -Path $ExerciseRootPath -ChildPath "Aufgabenblatt 10"
+        Join-Path -Path $ExerciseRootPath -ChildPath "Aufgabenblatt 100"
     ) -ItemType "Directory" -Force
 
     Context "Exercise folders exist" {
         It "returns an array of all exercise folders" {
             # Parameters: "ExerciseRootPath"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath
             $ExerciseFolder | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 10", "Aufgabenblatt 2")
         }
 
         It "returns an array of selected exercise folders" {
             # Parameters: "ExerciseRootPath", "ExerciseNumber"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath -ExerciseNumber @(1, 10)
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -ExerciseNumber @(1, 10)
             $ExerciseFolder | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 10")
         }
 
         It "returns an the newest exercise folder" {
             # Parameters: "ExerciseRootPath"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath -Newest
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -Newest
             $ExerciseFolder | Should Be @("Aufgabenblatt 10")
-        }
-    }
-
-    Context "Exercise folders do not exist" {
-        It "returns null" {
-            # Parameters: "ExerciseRootPath"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $WrongExerciseRootPath
-            $ExerciseFolder | Should Be $Null
-
-            # Parameters: "ExerciseRootPath", "ExerciseNumber"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $WrongExerciseRootPath -ExerciseNumber @(1, 10)
-            $ExerciseFolder | Should Be $Null
-
-            # Parameters: "ExerciseRootPath"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $WrongExerciseRootPath -Newest
-            $ExerciseFolder | Should Be $Null
         }
     }
 }

@@ -112,16 +112,16 @@ Function Get-ExerciseFolder {
     $ExerciseSheetRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseSheetRegex").ExerciseSheetRegex
 
     # Get all exercise directories
-    $ExercisePath = @(Get-ChildItem -Path $ExerciseRootPath -Directory -Name |
+    $ExercisePath = @(Get-ChildItem -Path $ExerciseRootPath -Directory |
         Where-Object {
-        $PSItem -Match $ExerciseSheetRegex
+        $PSItem.Name -Match $ExerciseSheetRegex
     })
 
     # Filter exercise numbers
     If ($ExerciseNumber.Length) {
         $ExercisePath = $ExercisePath |
             Where-Object {
-            $ExerciseNumber -Contains $ExerciseSheetRegex.Match($PSItem).Groups[1].Value
+            $ExerciseNumber -Contains $ExerciseSheetRegex.Match($PSItem.Name).Groups[1].Value
         }
     }
 

@@ -103,10 +103,10 @@ Function Get-PlmJar {
         "ExerciseNumber" {
 
             # Filter exercise numbers
-            $DownloadLinks = $DownloadLinks |
+            $DownloadLinks = @($DownloadLinks |
                 Where-Object {
                 $ExerciseNumber -Contains $PSItem.PSObject.Properties.Name
-            }
+            })
             Break
         }
         "ListAvailable" {

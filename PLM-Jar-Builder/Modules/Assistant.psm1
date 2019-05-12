@@ -508,11 +508,11 @@ Wahl
                         # Available download options:
                         Write-Host "Verfügbare Download-Optionen: "
 
-                        $AvailableJars = Get-PlmJar `
+                        $AvailableJars = @(Get-PlmJar `
                             -Session $Session `
                             -UserUsername $MatriculationNumber `
                             -UserPassword $UserPassword `
-                            -ListAvailable
+                            -ListAvailable)
 
                         ForEach ($AvailableJar In $AvailableJars) {
                             Write-Host $AvailableJar.PSObject.Properties.Name -ForegroundColor "Cyan"

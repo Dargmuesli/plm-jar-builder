@@ -150,7 +150,7 @@ Wahl
                     # Invalid path!
                     # The given folder does not contain exercise folders!
                     $ExerciseRootPath = Read-ValidInput `
-                        -Prompt "Der Pfad, in dem sich die Aufgaben-Ordern befinden" `
+                        -Prompt "Der Pfad, in dem sich die Aufgaben-Order befinden" `
                         -ValidityCheck @(
                         { Test-Path $args[0] }
                         { Get-ExerciseFolder -ExerciseRootPath $args[0] }
@@ -380,7 +380,7 @@ Wahl
                             # Invalid path!
                             # The given folder does not contain exercise folders!
                             $ExerciseRootPath = Read-ValidInput `
-                                -Prompt "Der Pfad, in dem sich die Aufgaben-Ordern befinden" `
+                                -Prompt "Der Pfad, in dem sich die Aufgaben-Order befinden" `
                                 -ValidityCheck @(
                                 { Test-Path $args[0] }
                                 { Get-ExerciseFolder -ExerciseRootPath $args[0] }

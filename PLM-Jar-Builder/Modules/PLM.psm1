@@ -238,33 +238,24 @@ Function Initialize-PlmSession {
     # Basic authentication credentials
     $PlmCredential = New-Object PSCredential($PlmUsername, $PlmPassword)
 
-    # Request login site to generate session
+    # Post the login form
+    # Due to bad weblayout the default is to send a new password to your email!
+    # This unwanted effect is corrected with action=Anmelden.
+    try{
     $Request = Invoke-WebRequest `
         -Uri $LoginUri `
         -Credential $PlmCredential `
-        -SessionVariable "Session"
-
-    # Fill login form's fields
-    $Form = $Request.Forms[0]
-    $Form.Fields["UserID"] = $UserUsername
-    $Form.Fields["Password"] = $UserPasswordLocal
-    # Due to bad weblayout the default is to send a new password to your email!
-    # This unwanted effect is hereby corrected.
-    $Form.Fields["action"] = "Anmelden"
-
-    # Post the login form
-    $Request = Invoke-WebRequest `
-        -Uri $LoginUri `
+        -SessionVariable "Session" `
         -WebSession $Session `
-        -Method "Post" `
-        -ContentType "application/x-www-form-urlencoded" `
-        -Body $Form.Fields `
+        -Method "POST" `
+        -Body "UserID=35200846&Password=XVCKqH7j4fkrpsd&action=neues+Passwort&action=Anmelden&logregact=logpass" `
         -MaximumRedirection 0 `
-        -ErrorAction SilentlyContinue
-
-    # Verify that we are redirected to the greeting (login successful) page
-    If (-Not ($Request.Headers.Location -Match "^https:\/\/www\.plm\.eecs\.uni-kassel\.de\/uebung\/index\.php\?pageID=100$")) {
-        Throw "Login failed!"
+        -ErrorAction Ignore
+    } catch {
+        # Verify that we are redirected to the greeting (login successful) page
+        If (-Not ($_.Exception.Response.Headers.Location -Match "^https:\/\/www\.plm\.eecs\.uni-kassel\.de\/uebung\/index\.php\?pageID=100$")) {
+            Throw "Login failed!"
+        }
     }
 
     Return $Session
@@ -342,7 +333,6 @@ Function Publish-PlmJar {
             # http://blog.majcica.com/2016/01/13/powershell-tips-and-tricks-multipartform-data-requests/
             Add-Type -AssemblyName "System.Web"
 
-            $ContentType = [System.Web.MimeMapping]::GetMimeMapping($Path)
             $Boundary = "---------------------------$([GUID]::NewGuid().ToString())"
             $FileBin = [System.IO.File]::ReadAllBytes($Path)
             $EncodingIso = [System.Text.Encoding]::GetEncoding("ISO-8859-1")
@@ -356,7 +346,6 @@ Content-Disposition: form-data; name="MAX_FILE_SIZE"
 5000000
 --$Boundary
 Content-Disposition: form-data; name="exercise_$ExerciseNumber"; filename="$($EncodingIso.GetString($JarBytes))"
-Content-Type: $($ContentType)
 
 $($EncodingIso.GetString($FileBin))
 --$Boundary

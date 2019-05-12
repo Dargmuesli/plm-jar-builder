@@ -497,7 +497,7 @@ Wahl
 
                 Switch ($Answer) {
                     1 {
-                        Get-PlmJar `
+                        $? = Get-PlmJar `
                             -Session $Session `
                             -UserUsername $MatriculationNumber `
                             -UserPassword $UserPassword `
@@ -530,7 +530,7 @@ Wahl
                                 "Ungültiges Format!"
                             )).Split(",").Trim()
 
-                        Get-PlmJar `
+                        $? = Get-PlmJar `
                             -Session $Session `
                             -UserUsername $MatriculationNumber `
                             -UserPassword $UserPassword `
@@ -539,7 +539,7 @@ Wahl
                         Break
                     }
                     3 {
-                        Get-PlmJar `
+                        $? = Get-PlmJar `
                             -Session $Session `
                             -UserUsername $MatriculationNumber `
                             -UserPassword $UserPassword `

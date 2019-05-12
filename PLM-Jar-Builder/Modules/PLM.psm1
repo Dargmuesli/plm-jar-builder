@@ -89,15 +89,7 @@ Function Get-PlmJar {
     $Request = Invoke-WebRequest `
         -Uri $PlmDownloadUri `
         -WebSession $Session
-    $DownloadLinks = $Request.ParsedHtml.Body.GetElementsByTagName("a") |
-        Where-Object {
-        $PSItem.getAttribute("href") -Match "^about:/uebung/upload/\d+/\d+_\d{2}.jar$"
-    } |
-        ForEach-Object {
-        [PSCustomObject] @{
-            $PSItem.innerText = $PSItem.getAttribute("href").TrimStart("about:")
-        }
-    }
+    $DownloadLinks = ([RegEx] '/uebung/upload/\d+/\d+_(\d{2}).jar').Matches($Request.Content)
 
     Switch ($PSCmdlet.ParameterSetName) {
         "ExerciseNumber" {
@@ -105,7 +97,7 @@ Function Get-PlmJar {
             # Filter exercise numbers
             $DownloadLinks = @($DownloadLinks |
                 Where-Object {
-                $ExerciseNumber -Contains $PSItem.PSObject.Properties.Name
+                $ExerciseNumber -Contains ([Int] $PSItem.Groups[1].Value)
             })
             Break
         }
@@ -126,17 +118,21 @@ Function Get-PlmJar {
 
         Switch ($PSCmdlet.ParameterSetName) {
             "Newest" {
-                Get-FileFromWeb -Url "$PlmUri$($DownloadLinks[$DownloadLinks.Length - 1].PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
+                $DownloadLink = $DownloadLinks[$DownloadLinks.Count - 1].Value
+                Invoke-WebRequest -Uri "$PlmUri$DownloadLink" -OutFile (Join-Path -Path $DownloadPath -ChildPath $DownloadLink.Substring($DownloadLink.LastIndexOf("/"))) -Credential $UserCredential
                 Break
             }
             { @("ExerciseNumber", "All") -Contains $PSItem } {
                 ForEach ($DownloadLink In $DownloadLinks) {
-                    Get-FileFromWeb -Url "$PlmUri$($DownloadLink.PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
+                    $DownloadLink = $DownloadLink.Value
+                    Invoke-WebRequest -Uri "$PlmUri$DownloadLink" -OutFile (Join-Path -Path $DownloadPath -ChildPath $DownloadLink.Substring($DownloadLink.LastIndexOf("/"))) -Credential $UserCredential
                 }
 
                 Break
             }
         }
+
+        Return $True
     }
 }
 
@@ -339,9 +335,9 @@ Function Publish-PlmJar {
         -WebSession $Session
 
     If (Test-PlmUploadAvailable -Request $Request) {
-        $Form = $Request.Forms[0]
+        $ExerciseNumberAvailable = [RegEx]::Match($Request.Content, "name=`"exercise_(\d{2})`"").Captures.Groups[1].Value
 
-        If ((-Not $ExerciseNumber) -Or $Form.Fields.ContainsKey("exercise_$ExerciseNumber")) {
+        If ((-Not $ExerciseNumber) -Or ($ExerciseNumberAvailable -Eq $ExerciseNumber)) {
 
             # http://blog.majcica.com/2016/01/13/powershell-tips-and-tricks-multipartform-data-requests/
             Add-Type -AssemblyName "System.Web"
@@ -381,12 +377,12 @@ on
                 -Exception "InvalidOperationException" `
                 -ErrorId "ExerciseNumberError" `
                 -ErrorCategory "InvalidOperation" `
-                -TargetObject $Form `
+                -TargetObject $Request `
                 -Message (
                 -join (
                     "Aus dem Dateinamen der Datei, die hochgeladen werden soll, folgt die Übungsnummer $ExerciseNumber. ",
                     "Diese kann aktuell nicht hochgeladen werden. ",
-                    "Für den Upload freigegeben ist `"$(($Form.Fields.GetEnumerator() | Select-Object -Expand "Key")[1])`"."
+                    "Für den Upload freigegeben ist Übungsnummer $ExerciseNumberAvailable."
                 )
             )
         }
@@ -471,11 +467,8 @@ Function Test-PlmUploadAvailable {
 
     $MatchFound = $False
 
-    $LocalRequest.ParsedHtml.Body.GetElementsByClassName("info") |
-        ForEach-Object {
-        If ($PSItem.innerText.Trim() -Match "Es steht keine Abgabe von Lösungen an") {
-            $MatchFound = $True
-        }
+    If ($LocalRequest.Content -Contains "Es steht keine Abgabe von Lösungen an") {
+        $MatchFound = $True
     }
 
     If ($MatchFound) {

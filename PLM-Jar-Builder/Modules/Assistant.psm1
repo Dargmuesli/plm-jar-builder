@@ -515,7 +515,7 @@ Wahl
                             -ListAvailable)
 
                         ForEach ($AvailableJar In $AvailableJars) {
-                            Write-Host $AvailableJar.PSObject.Properties.Name -ForegroundColor "Cyan"
+                            Write-Host $AvailableJar.Groups[1] -ForegroundColor "Cyan"
                         }
 
                         # Comma separated exercise numbers

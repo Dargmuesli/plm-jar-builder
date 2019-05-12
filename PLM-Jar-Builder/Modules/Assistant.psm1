@@ -143,7 +143,7 @@ Wahl
 
         Switch ($Answer) {
             1 {
-                If (($ExerciseRootPath -Eq $Null) -Or (-Not (Test-Path $ExerciseRootPath)) -Or (-Not (Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath))) {
+                If (($Null -Eq $ExerciseRootPath) -Or (-Not (Test-Path $ExerciseRootPath)) -Or (-Not (Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath))) {
 
                     # The path in which the exercise folders are placed
                     # ---
@@ -161,7 +161,7 @@ Wahl
                     )
                 }
 
-                If ($NoNote -Eq $Null) {
+                If ($Null -Eq $NoNote) {
                     # Note Exclusion
                     # Do you want prevent the addition of a disclaimer to your jar file?
                     If (Read-PromptYesNo -Caption "Notiz-Ausschluss" -Message "Soll das Packen des Disclaimers in die .jar-Datei verhindert werden?") {
@@ -171,7 +171,7 @@ Wahl
                     }
                 }
 
-                If ($Exclude -Eq $Null) {
+                If ($Null -Eq $Exclude) {
 
                     # Exclusion
                     # Do you want to exclude certain file types?
@@ -373,7 +373,7 @@ Wahl
 
                 Switch ($Answer) {
                     1 {
-                        If (($ExerciseRootPath -Eq $Null) -Or (-Not (Test-Path $ExerciseRootPath)) -Or (-Not (Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath))) {
+                        If (($Null -Eq $ExerciseRootPath) -Or (-Not (Test-Path $ExerciseRootPath)) -Or (-Not (Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath))) {
 
                             # The path in which the exercise folders are placed
                             # ---
@@ -455,7 +455,7 @@ Wahl
                     $UserPassword = $UserPassword | ConvertTo-SecureString
                 }
 
-                If (($DownloadPath -Eq $Null) -Or (-Not (Test-Path $DownloadPath))) {
+                If (($Null -Eq $DownloadPath) -Or (-Not (Test-Path $DownloadPath))) {
 
                     # The path to download the jar file to
                     # ---

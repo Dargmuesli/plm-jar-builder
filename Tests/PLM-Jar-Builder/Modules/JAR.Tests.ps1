@@ -72,15 +72,15 @@ Describe "Get-ExerciseFolder" {
         It "returns this exercise folder" {
             # Parameters: "ExerciseRootPath"
             $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath
-            $ExerciseFolder | Should Be @("Aufgabenblatt 1")
+            $ExerciseFolder.Name | Should Be @("Aufgabenblatt 1")
 
             # Parameters: "ExerciseRootPath", "ExerciseNumber"
             $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -ExerciseNumber @(1, 10)
-            $ExerciseFolder | Should Be @("Aufgabenblatt 1")
+            $ExerciseFolder.Name | Should Be @("Aufgabenblatt 1")
 
             # Parameters: "ExerciseRootPath"
             $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -Newest
-            $ExerciseFolder | Should Be @("Aufgabenblatt 1")
+            $ExerciseFolder.Name | Should Be @("Aufgabenblatt 1")
         }
     }
 
@@ -94,19 +94,19 @@ Describe "Get-ExerciseFolder" {
         It "returns an array of all exercise folders" {
             # Parameters: "ExerciseRootPath"
             $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath
-            $ExerciseFolder | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 10", "Aufgabenblatt 2")
+            $ExerciseFolder.Name | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 10", "Aufgabenblatt 2")
         }
 
         It "returns an array of selected exercise folders" {
             # Parameters: "ExerciseRootPath", "ExerciseNumber"
             $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -ExerciseNumber @(1, 10)
-            $ExerciseFolder | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 10")
+            $ExerciseFolder.Name | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 10")
         }
 
-        It "returns an the newest exercise folder" {
+        It "returns the newest exercise folder" {
             # Parameters: "ExerciseRootPath"
             $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -Newest
-            $ExerciseFolder | Should Be @("Aufgabenblatt 10")
+            $ExerciseFolder.Name | Should Be @("Aufgabenblatt 10")
         }
     }
 }

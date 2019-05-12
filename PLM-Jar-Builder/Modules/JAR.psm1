@@ -132,7 +132,7 @@ Function Get-ExerciseFolder {
             $BiggestNumberIndex = 0
 
             For ($I = 0; $I -Lt $ExercisePath.Length; $I++) {
-                $CurrentNumber = [Int] $ExerciseSheetRegex.Match($ExercisePath[$I]).Groups[1].Value
+                $CurrentNumber = [Int] $ExerciseSheetRegex.Match($ExercisePath[$I].Name).Groups[1].Value
 
                 If ($CurrentNumber -Gt $BiggestNumber) {
                     $BiggestNumber = $CurrentNumber
